@@ -1,0 +1,38 @@
+--- ../src-base/minecraft/net/minecraft/entity/EntityCreature.java
++++ ../src-work/minecraft/net/minecraft/entity/EntityCreature.java
+@@ -15,6 +15,8 @@
+     private BlockPos field_70775_bC = BlockPos.field_177992_a;
+     private float field_70772_bD = -1.0F;
+     private final float field_184661_bw = PathNodeType.WATER.func_186289_a();
++    /** Forge: make the distance between entities at which a leash breaks a field instead of hard-coded */
++    protected float maxLeashDistance = 10.0F;
+ 
+     public EntityCreature(World p_i1602_1_)
+     {
+@@ -91,7 +93,7 @@
+ 
+             if (this instanceof EntityTameable && ((EntityTameable)this).func_70906_o())
+             {
+-                if (f > 10.0F)
++                if (f > maxLeashDistance)
+                 {
+                     this.func_110160_i(true, true);
+                 }
+@@ -101,7 +103,7 @@
+ 
+             this.func_142017_o(f);
+ 
+-            if (f > 10.0F)
++            if (f > maxLeashDistance)
+             {
+                 this.func_110160_i(true, true);
+                 this.field_70714_bg.func_188526_c(1);
+@@ -133,4 +135,8 @@
+     protected void func_142017_o(float p_142017_1_)
+     {
+     }
++    /** Returns the maximum length of a leash before it breaks for this entity */
++    public float getMaxLeashDistance() { return maxLeashDistance; }
++    /** Sets the maximum length of a leash before it breakss for this entity */
++    public void setMaxLeashDistance(float distance) { maxLeashDistance = distance; }
+ }
